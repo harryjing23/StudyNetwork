@@ -100,17 +100,25 @@ public class Test_HttpURLConnection {
     }
 
     public static class Channel {
-        public static Map<String, String> getHeader() throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
-            Calendar cd = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US);
-            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-            String datetime = sdf.format(cd.getTime());
-            String auth = Channel.calcAuthorization(Constant.SOURCE, Constant.SECRET_ID, Constant.SECRET_KEY, datetime);
-            // 请求头
+        public static Map<String, String> getHeader() {
             Map<String, String> headers = new HashMap<String, String>();
-            headers.put("X-Source", Constant.SOURCE);
-            headers.put("X-Date", datetime);
-            headers.put("Authorization", auth);
+            try {
+                Calendar cd = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US);
+                sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+                String datetime = sdf.format(cd.getTime());
+                String auth = Channel.calcAuthorization(Constant.SOURCE, Constant.SECRET_ID, Constant.SECRET_KEY, datetime);
+                // 请求头
+                headers.put("X-Source", Constant.SOURCE);
+                headers.put("X-Date", datetime);
+                headers.put("Authorization", auth);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (InvalidKeyException e) {
+                e.printStackTrace();
+            }
             return headers;
         }
 

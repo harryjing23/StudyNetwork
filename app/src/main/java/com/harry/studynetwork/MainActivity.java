@@ -13,7 +13,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestSubThread();
+//        requestSubThread();
+        TestUtil.testGet();
+//        TestUtil.testPost();
     }
 
     public void requestSubThread(){
