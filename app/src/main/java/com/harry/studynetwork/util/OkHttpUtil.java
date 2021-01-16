@@ -2,7 +2,6 @@ package com.harry.studynetwork.util;
 
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -55,6 +54,7 @@ public class OkHttpUtil {
 
     /**
      * 所有请求都用enqueue()异步请求。若用execute()同步请求，Android要求要在子线程中执行
+     * 若用enqueue()异步请求，回调则执行在子线程中
      */
     public static class RequestUtil {
         private static final String TAG = "RequestUtil";
@@ -98,15 +98,15 @@ public class OkHttpUtil {
         public void get(UtilCallback callback) {
             OkHttpUtil.getClient().newCall(mRequestBuilder.build()).enqueue(new Callback() {
                 @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                public void onFailure(Call call, IOException e) {
                     Log.d(TAG, "onFailure: " + e.getMessage());
                     if (callback != null) {
-
+                        callback.succeeded();
                     }
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG, "onResponse: ");
                     if (!response.isSuccessful()) {
                         Log.e(TAG, "onResponse: not isSuccessful: " + response);
@@ -120,7 +120,7 @@ public class OkHttpUtil {
                     }
 
                     if (callback != null) {
-
+                        callback.failed();
                     }
                 }
             });
@@ -133,15 +133,15 @@ public class OkHttpUtil {
          * @param callback
          */
         public void post(String data, UtilCallback callback) {
-            mRequestBuilder.post(RequestBody.create(data, MEDIA_TYPE_MARKDOWN));
+            mRequestBuilder.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, data));
             OkHttpUtil.getClient().newCall(mRequestBuilder.build()).enqueue(new Callback() {
                 @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                public void onFailure(Call call, IOException e) {
                     Log.d(TAG, "onFailure: " + e.getMessage());
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG, "onResponse: ");
                     if (!response.isSuccessful()) {
                         Log.e(TAG, "onResponse: not isSuccessful: " + response);
@@ -164,15 +164,15 @@ public class OkHttpUtil {
          * @param callback
          */
         public void post(File data, UtilCallback callback) {
-            mRequestBuilder.post(RequestBody.create(data, MEDIA_TYPE_MARKDOWN));
+            mRequestBuilder.post(RequestBody.create(MEDIA_TYPE_MARKDOWN, data));
             OkHttpUtil.getClient().newCall(mRequestBuilder.build()).enqueue(new Callback() {
                 @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                public void onFailure(Call call, IOException e) {
                     Log.d(TAG, "onFailure: " + e.getMessage());
                 }
 
                 @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                public void onResponse(Call call, Response response) throws IOException {
                     Log.d(TAG, "onResponse: ");
                     if (!response.isSuccessful()) {
                         Log.e(TAG, "onResponse: not isSuccessful: " + response);

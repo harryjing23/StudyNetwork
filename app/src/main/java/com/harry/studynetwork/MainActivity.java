@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.harry.studynetwork.retrofit.RetrofitTest;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,8 +16,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        requestSubThread();
-        TestUtil.testGet();
+//        TestUtil.testGet();
 //        TestUtil.testPost();
+
+        RetrofitTest.init();
+        RetrofitTest.test();
     }
 
     public void requestSubThread(){

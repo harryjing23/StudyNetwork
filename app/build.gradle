@@ -33,11 +33,16 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0-RC1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    // okhttp 3.13.0及以上需要Java8+或Android5.0+
-    implementation 'com.squareup.okhttp3:okhttp:3.12.12'
+    // okhttp 3.13.0及以上需要Java 8+或Android 5.0+
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    // retrofit 最低要求Java 8+或Android API 21+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    // retrofit converter
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    // okhttp日志拦截器。OkHttp 3.13.x需要Java 8+或Android 5.0+，4.x改用了Kotlin
+    api 'com.squareup.okhttp3:logging-interceptor:3.14.9'
 }

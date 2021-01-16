@@ -2,8 +2,6 @@ package com.harry.studynetwork.util;
 
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -17,9 +15,8 @@ import okhttp3.Response;
 public class LoggingInterceptor implements Interceptor {
     private static final String TAG = "LoggingInterceptor";
 
-    @NotNull
     @Override
-    public Response intercept(@NotNull Chain chain) throws IOException {
+    public Response intercept( Chain chain) throws IOException {
         Request request = chain.request();
 
         long t1 = System.nanoTime();
